@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 
 function writeFile(fileName, array = []) {
-    if(!fileName) console.error(`Incorrect file name: ${fileName}`);
+    if(!fileName) throw new Error(`Incorrect file name: ${fileName}`);
     if(array.length === 0) console.error(`No data to write: ${array}`);
     fs.appendFile(path.join(__dirname, '/' , fileName), `${array.join(',')}\n`, err => {
         if(err) {
