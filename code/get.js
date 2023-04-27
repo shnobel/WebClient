@@ -1,10 +1,14 @@
 async function get(url, data) {
-    if(!url) console.error(`Please provide url. Url: ${url}`);
+    if(!url) throw new Error(`Please provide url...`);
     if(JSON.stringify(data) !== "{}") {
         url += '?' + new URLSearchParams(data).toString();
     } 
     try {
-        return await fetch(url);
+        const response = await fetch(url);
+        if(response.status != 200) {
+            throw new Error(`Unexpected response status: ${response.status}`);
+        }
+        return response;  
     } catch (error) {
         console.error(`Error: ${error}`);
     }
